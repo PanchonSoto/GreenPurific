@@ -10,6 +10,8 @@ import { BreadcrumbsComponent } from './shared/breadcrumbs/breadcrumbs.component
 import { SidebarComponent } from './shared/sidebar/sidebar.component';
 import { HeaderComponent } from './shared/header/header.component';
 import { EmpleadosComponent } from './pages/empleados/empleados.component';
+import { NopagefoundComponent } from './nopagefound/nopagefound.component';
+import { PagesComponent } from './pages/pages.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,9 @@ import { EmpleadosComponent } from './pages/empleados/empleados.component';
     BreadcrumbsComponent,
     SidebarComponent,
     HeaderComponent,
-    EmpleadosComponent
+    EmpleadosComponent,
+    NopagefoundComponent,
+    PagesComponent
   ],
   imports: [
     BrowserModule,
