@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { SharedModule } from '../shared/shared.module';
+import { PagesRoutingModule } from './pages.routing';
 
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { EmpleadosComponent } from './empleados/empleados.component';
@@ -22,6 +23,7 @@ import { RouterModule } from '@angular/router';
     SharedModule
   ],
   exports: [
+    PagesRoutingModule,
     DashboardComponent,
     EmpleadosComponent,
     PagesComponent
