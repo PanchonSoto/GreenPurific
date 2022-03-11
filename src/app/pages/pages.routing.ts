@@ -6,6 +6,7 @@ import { AuthGuard } from '../guards/auth.guard';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { EmpleadosComponent } from './empleados/empleados.component';
 import { PagesComponent } from './pages.component';
+import { PerfilComponent } from './perfil/perfil.component';
 
 const routes: Routes = [
   {
@@ -15,6 +16,7 @@ const routes: Routes = [
     children: [
       { path: '', component: DashboardComponent },
       { path: 'empleados', component: EmpleadosComponent },
+      { path: 'perfil', component: PerfilComponent }
     ],
   },
   //{ path: 'path/:routeParam', component: MyComponent },

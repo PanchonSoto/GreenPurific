@@ -8,6 +8,7 @@ import { environment } from '../../environments/environment';
 
 import { RegisterForm } from '../interfaces/register-form.interfaces';
 import { LoginForm } from '../interfaces/login-form.interface';
+import { Usuario } from '../models/usuario.model';
 
 
 
@@ -19,10 +20,22 @@ declare const gapi: any;
 })
 export class UsuariosService {
 
+
+
+
   public auth2: any;
+  public usuario?: Usuario;
 
   constructor(private http: HttpClient, private router: Router, private ngZone: NgZone) {
     this.googleInit();
+  }
+
+  get token() {
+    return localStorage.getItem('token') || ''; 
+  }
+
+  get uid() {
+    return this.usuario?.uid || '';
   }
 
 
@@ -53,15 +66,17 @@ export class UsuariosService {
 
 
   validartoken(): Observable<boolean> {
-    const token = localStorage.getItem('token') || '';
 
     return this.http.get(`${base_url}/login/renew`,{
       headers: {
-        'x-token': token
+        'x-token': this.token
       }
     }).pipe(
       tap((res:any)=>{
-        if(!token || token=== undefined) localStorage.setItem('token',res.token);
+        console.log(res);
+        const { email, google, nombre, role, img, uid  } = res.usuario;
+        this.usuario = new Usuario(nombre,email,'',img,google,role,uid);
+        if(!this.token || this.token=== undefined) localStorage.setItem('token',res.token);
       }),
       map(res=>true),
       catchError(error=> of(false))
@@ -76,6 +91,15 @@ export class UsuariosService {
           localStorage.setItem('token',res.token);
         })
       );
+  }
+
+
+  actualizarPerfil(data: {email: string, nombre: string}) {
+    return this.http.put(`${base_url}/usuarios/${this.uid}`, data, {
+      headers: {
+        'x-token': this.token
+      } 
+    });
   }
 
 
