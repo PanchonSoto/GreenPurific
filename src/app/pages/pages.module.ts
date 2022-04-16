@@ -1,15 +1,17 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
 
-import { SharedModule } from '../shared/shared.module';
+import { ComponentsModule } from '../components/components.module';
 import { PagesRoutingModule } from './pages.routing';
+import { SharedModule } from '../shared/shared.module';
 
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { EmpleadosComponent } from './empleados/empleados.component';
 import { PagesComponent } from './pages.component';
-import { RouterModule } from '@angular/router';
 import { PerfilComponent } from './perfil/perfil.component';
+import { UsuariosComponent } from './mantenimientos/usuarios/usuarios.component';
 
 
 
@@ -18,20 +20,22 @@ import { PerfilComponent } from './perfil/perfil.component';
     DashboardComponent,
     EmpleadosComponent,
     PagesComponent,
-    PerfilComponent
+    PerfilComponent,
+    UsuariosComponent
   ],
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
-    SharedModule
+    SharedModule,
+    ComponentsModule
   ],
   exports: [
-    PagesRoutingModule,
     DashboardComponent,
     EmpleadosComponent,
-    PagesComponent
+    PagesComponent,
+    PagesRoutingModule,
   ]
 })
 export class PagesModule { }

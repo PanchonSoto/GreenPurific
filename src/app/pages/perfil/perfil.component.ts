@@ -9,6 +9,15 @@ import { UsuariosService } from 'src/app/services/usuarios.service';
   selector: 'app-perfil',
   templateUrl: './perfil.component.html',
   styles: [
+    `
+      .contenedor {
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+      h1 {
+        margin: 0 10vw;
+      }
+    `
   ]
 })
 export class PerfilComponent implements OnInit {

@@ -1,0 +1,138 @@
+<div class="conta">
+
+
+<h1>Usuarios de la App {{totalUsuarios}}</h1>
+
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Buscar usuario..."
+          (keyup)="buscar(txtTermino.value)"
+          #txtTermino
+        />
+      </div>
+    </div>
+  </div>
+
+
+
+
+<div *ngIf="cargando" class="d-flex justify-content-center cargando">
+    <div class="spinner-border" role="status">
+    </div>
+</div>
+
+<div *ngIf="!cargando" class="col-lg-12 mt-4">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="user-dashboard-info-box table-responsive p-4 shadow-sm">
+        <table class="table table-hover manage-candidates-top mb-0">
+          <thead>
+            <tr>
+              <th>Informacion del usuario</th>
+              <th class="text-center">Rol</th>
+              <th class="action text-right">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr 
+             *ngFor="let usuario of usuarios"
+             class="candidates-list"
+             [ngClass]="{'table-warning': !eliminarme(usuario)}">
+              <td class="title">
+                <div class="thumb" (click)="abrirModal(usuario)">
+                  <img
+                    class="img-fluid"
+                    [src]="usuario.imagenUrl"
+                    referrerpolicy="no-referrer"
+                    alt="imagen de usuario"
+                  />
+                </div>
+                <div class="candidate-list-details">
+                  <div class="candidate-list-info">
+                    <div class="candidate-list-title">
+                      <h5 class="text-primary">{{usuario.nombre}}</h5>
+                    </div>
+                    <div class="candidate-list-option">
+                      <ul class="list-unstyled">
+                        <li>
+                          <i *ngIf="!usuario.google" class="fa fa-envelope text-info fa-lg pr-1"></i>
+                          <i *ngIf="usuario.google" class="fa fa-google text-danger fa-lg" aria-hidden="true"></i>
+                          {{usuario.email}}
+                        </li>
+      
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </td>
+              <td class="candidate-list-favourite-time text-center">
+                <select 
+                 class="form-control" 
+                 title="Cambiar rol"
+                 [(ngModel)]="usuario.role"
+                 (change)="cambiarRole(usuario)">
+                  <option value="ADMIN_ROLE">Administrador</option>
+                  <option value="USER_ROLE">Usuario</option>
+                </select>
+               
+              </td>
+              <td class="acciones">
+                <ul class="list-unstyled mb-0 d-flex justify-content-end">
+                  <li>
+                    <a
+                      class="text-info"
+                      title="Editar"
+                      data-original-title="Edit"
+                      >
+                      <i class="fas fa-pencil-alt"></i >
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      class="text-danger"
+                      data-toggle="tooltip"
+                      title="Borrar"
+                      data-original-title="Delete"
+                      *ngIf="eliminarme(usuario)"
+                      (click)="eliminarUser(usuario)"
+                      >
+                      <i class="far fa-trash-alt"></i>
+                    </a>
+                  </li>
+                </ul>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div *ngIf="txtTermino.value.length === 0" class="text-center mt-3 mt-sm-3">
+          <ul class="pagination justify-content-center mb-0">
+            <li class="page-item">
+              <button 
+               type="button" 
+               class="page-link" 
+               (click)="cambiarPagina(-5)">
+               Anterior
+              </button>
+            </li>      
+            <li class="page-item">
+              <button 
+               type="button" 
+               class="page-link" 
+               (click)="cambiarPagina(5)">
+               Siguiente
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+</div>
