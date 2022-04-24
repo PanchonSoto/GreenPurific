@@ -1,0 +1,151 @@
+<div class="container-fluid">
+  <h1 class="h3 mb-0 text-gray-800">Agregar empleado</h1>
+
+  <div class="row mt-5 contenedor">
+    <!-- Area Chart -->
+    <div class="col-md-6 col-lg-6">
+      <div class="card shadow mb-4">
+        <!-- Card Header - Dropdown -->
+        <div
+          class="card-header py-3 d-flex flex-row align-items-center justify-content-between mb-2"
+        >
+          <h6 class="m-0 font-weight-bold text-primary">
+            Informacion del empleado
+          </h6>
+        </div>
+        <!-- Card Body -->
+        <div *ngIf="empleadoSelected" class="form-group my-2">
+            <h2 class="text-xs font-weight-bold text-primary text-uppercase ml-4 mt-2">
+                Imagen del usuario
+            </h2>
+            <div class="text-center">
+                <img
+                 [src]="empleadoSelected.img! | imagen:'empleados'"
+                 class="img-avatar mb-4"
+                 referrerpolicy="no-referrer"
+                 alt="Imagen del empleado"
+                />
+            </div>
+          
+        </div>
+
+        <form class="form"
+         [formGroup]="empleadoForm"
+         (submit)="guardarEmpleado()">
+
+          <div class="card-body">
+            <h2 class="text-xs font-weight-bold text-primary text-uppercase">
+              Nombre
+            </h2>
+
+            <div class="input-group mb-4 mr-sm-2">
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <i class="fas fa-user fa-sm fa-fw"></i>
+                </div>
+              </div>
+              <input
+                formControlName="nombre"
+                type="text"
+                class="form-control"
+                id="inlineFormInputGroupUsername1"
+                placeholder="Nombre del usuario"
+              />
+            </div>
+
+            <h2 class="text-xs font-weight-bold text-primary text-uppercase">
+              Purificadora
+            </h2>
+            <div class="input-group mb-5 mr-sm-2">
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <i class="fa fa-briefcase fa-fw"></i>
+                </div>
+              </div>
+              <select 
+               class="form-control"
+               formControlName="purificadora">
+                <option value="">Purificadora:</option>
+                <option 
+                 *ngFor="let purificadora of purificadoras"
+                 [value]="purificadora.pid">{{ purificadora.nombre }}</option>
+              </select>
+            </div>
+
+            <button 
+             type="submit" 
+             class="btn btn-success btn-block mb-2"
+             [disabled]="empleadoForm.invalid">
+              <i class="fas fa-save fa-fw"></i> Guardar datos
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+
+
+
+
+    <div class="col-md-6 col-lg-6 animated--fade-in" *ngIf="purificadoraSelected">
+      <div class="card shadow mb-4">
+        <!-- Card Header - Dropdown -->
+        <div
+          class="card-header py-3 d-flex flex-row align-items-center justify-content-between"
+        >
+          <h6 class="m-0 font-weight-bold text-primary">
+            Informacion de la purificadora
+          </h6>
+        </div>
+        <!-- Card Body -->
+        <div class="card-body">
+
+          <h2 class="text-xs font-weight-bold text-primary text-uppercase">
+            Imagen de la purificadora
+          </h2>
+
+          <div class="form-group my-4 text-center">
+            <img
+              [src]="purificadoraSelected.img! | imagen:'purificadoras'"
+              alt="purificadora img "
+              class="img-purific"
+              referrerpolicy="no-referrer"
+            />
+          </div>
+
+          <div class="candidate-list-details">
+
+            <div class="candidate-list-info mb-2">
+              <div class="candidate-list-title">
+                <h5>
+                  <a>
+                      {{ purificadoraSelected.nombre }} 
+                 </a>
+                </h5>
+              </div>
+
+              <div class="candidate-list-option">
+                <ul class="list-unstyled">
+                  <li>
+                    <i class="fas fa-filter pr-1"></i>{{ purificadoraSelected.estado }} 
+                  </li>
+                  <li>
+                    <i class="fas fa-map-marker-alt pr-1"></i>
+                    {{ purificadoraSelected.localidad }} 
+                  </li>
+                </ul>
+              </div>
+
+            </div>
+          </div>
+           
+
+
+        </div>   
+
+          
+     </div>
+    </div>
+
+ </div>
+</div>

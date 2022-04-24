@@ -8,6 +8,7 @@ import { BusquedasService } from 'src/app/services/busquedas.service';
 import { ModalImagenService } from 'src/app/services/modal-imagen.service';
 import { UsuariosService } from '../../../services/usuarios.service';
 import { delay, Subscription } from 'rxjs';
+import { Purificadora } from '../../../models/purificadora.model';
 
 @Component({
   selector: 'app-usuarios',
@@ -70,7 +71,7 @@ export class UsuariosComponent implements OnInit, OnDestroy {
       this.usuarios = this.usuariosTemp;
     }
 
-    this.searchService.buscar('usuarios', termino)
+    this.searchService.buscarUser(termino)
       .subscribe(res => {
         this.usuarios = res;
       });

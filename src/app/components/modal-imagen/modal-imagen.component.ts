@@ -4,8 +4,6 @@ import Swal from 'sweetalert2';
 
 import { FileUploadService } from 'src/app/services/file-upload.service';
 import { ModalImagenService } from 'src/app/services/modal-imagen.service';
-import { UsuariosService } from 'src/app/services/usuarios.service';
-import { Usuario } from '../../models/usuario.model';
 
 
 @Component({
@@ -20,7 +18,7 @@ export class ModalImagenComponent implements OnInit {
   public imagenSubir!: File;
   public imgTemp: any;
 
-  constructor(public modalService: ModalImagenService, private uService: UsuariosService, private fService: FileUploadService) { }
+  constructor(public modalService: ModalImagenService, private fService: FileUploadService) { }
 
   ngOnInit(): void {
   }

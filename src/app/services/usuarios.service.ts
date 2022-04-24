@@ -75,17 +75,13 @@ export class UsuariosService {
 
   validartoken(): Observable<boolean> {
 
-    return this.http.get(`${base_url}/login/renew`,{
-      headers: {
-        'x-token': this.token
-      }
-    }).pipe(
-      tap((res:any)=>{
-        console.log(res);
-        const { email, google, nombre, role, img, uid  } = res.usuario;
-        this.usuario = new Usuario(nombre,email,'',img,google,role,uid);
-        if(!this.token || this.token=== undefined) localStorage.setItem('token',res.token);
-      }),
+    return this.http.get(`${base_url}/login/renew`, this.headers)
+      .pipe(
+        tap((res:any)=>{
+          const { email, google, nombre, role, img, uid  } = res.usuario;
+          this.usuario = new Usuario(nombre,email,'',img,google,role,uid);
+          if(!this.token || this.token=== undefined) localStorage.setItem('token',res.token);
+        }),
       map(res=>true),
       catchError(error=> of(false))
     );

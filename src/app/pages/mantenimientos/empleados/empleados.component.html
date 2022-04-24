@@ -1,0 +1,120 @@
+<!--  TODO: AQUI EMPIEZA LO CHIDO  -->
+<div class="container-fluid">
+    <h1>Informacion del empleado</h1>
+<div class="row animated fadeIn">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Buscar empleado..."
+          #txtTermino
+          (keyup)="buscar(txtTermino.value)"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<div *ngIf="cargando" class="d-flex justify-content-center cargando">
+    <div class="spinner-border" role="status">
+    </div>
+</div>
+
+<div *ngIf="!cargando" class="col-lg-12 mt-2 animated--fade-in">
+  <div class="row">
+    
+      <div class="col-8 my-2">
+        <h4 class="card-title">Empleados ({{empleados.length}})</h4>
+        <h6 class="card-subtitle"> registrados en la app</h6>
+      </div>
+    
+      <div class="col">
+        <div class="text-right">
+          <a routerLink="/dashboard/empleado/nuevo" class="btn btn-primary">
+            <i class="fa fa-hospital-o"></i>
+            Nuevo empleado
+          </a>
+        </div>
+      </div>
+   
+
+      <div class="bg-white user-dashboard-info-box table-responsive p-4 shadow-sm">
+        <table class="table table-hover manage-candidates-top mb-0">
+          <thead>
+            <tr>
+              <th>Nombre del empleado</th>
+              <th class="action text-right">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let empleado of empleados" class="candidates-list">
+              <td class="title">
+                <div class="thumb">
+                  <img
+                    (click)="abrirModal(empleado)"
+                    class="img-fluid"
+                    [src]="empleado.img! | imagen: 'empleados'"
+                    alt="imagen de empleado"
+                  />
+                </div>
+                <div class="candidate-list-details">
+                  <div class="candidate-list-info">
+                    <div class="candidate-list-title">
+                      <h5 class="mb-0"><a href="#">{{empleado.nombre}}</a></h5>
+                    </div>
+                    <div class="candidate-list-option">
+                      <ul class="list-unstyled">
+                        <li>
+                          <i class="fas fa-filter pr-1"></i>
+                            Vendedor
+                        </li>
+                        <li>
+                          <i class="fas fa-map-marker-alt pr-1"></i>{{empleado.purificadora?.nombre}}
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <ul class="list-unstyled mb-0 d-flex justify-content-end">
+                  
+                  <li>
+                    <a
+                      [routerLink]="['/dashboard/empleado', empleado.eid]"
+                      class="text-info mr-2"
+                      data-toggle="tooltip"
+                      title="Editar"
+                      data-original-title="Edit"
+                      ><i class="fas fa-pencil-alt"></i>
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      (click)="borrarEmpleado(empleado)"
+                      class="text-danger"
+                      data-toggle="tooltip"
+                      title="Borrar"
+                      data-original-title="Delete"
+                      >
+                        <i class="far fa-trash-alt"></i>
+                    </a>
+                  </li>
+                </ul>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        
+      </div>
+   
+  </div>
+</div>
+
+
+</div>

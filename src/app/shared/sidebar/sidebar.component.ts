@@ -3,7 +3,9 @@ import { Component, ElementRef, OnInit } from '@angular/core';
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
-  styles: [
+  styles: [`
+    .menu { z-index:2!important;}
+  `
   ]
 })
 export class SidebarComponent implements OnInit {

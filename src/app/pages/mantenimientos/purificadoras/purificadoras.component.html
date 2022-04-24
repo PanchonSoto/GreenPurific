@@ -1,0 +1,183 @@
+
+<div class="cont">
+
+  <h1 class="mb-2">Purificadoras</h1>
+  <div class="row">
+
+    <div class="col-lg-3 mt-2">
+      <div class="sidebar2">
+        <div class="widget border-0">
+          <div class="search">
+            <input
+              class="form-control"
+              type="text"
+              placeholder="Buscar purificadora"
+              (keyup)="buscar(txtTermino.value)"
+              #txtTermino
+            />
+          </div>
+        </div>
+
+        <div class="widget">
+
+          <div class="widget-title widget-collapse bg-primary">
+            <h6 class="h6">Agregar purificadora</h6>
+            <a
+              class="ml-auto"
+              title="Agregar"
+              data-toggle="collapse"
+              href="#dateposted"
+              role="button"
+              aria-expanded="false"
+              aria-controls="dateposted"
+            >
+              <i class="fas fa-chevron-down"></i>
+            </a>
+          </div>
+
+          <div class="collapse" id="dateposted">
+
+            <form #miForm="ngForm" (submit)="guardar(miForm)">
+              <div class="card-body">
+                <div class="numbr mb-3">
+                  <i class="col-2 fa fa-briefcase text-muted"></i>
+                  <input
+                    class="col-10 p-0"
+                    type="text"
+                    ngModel
+                    name="nombre"
+                    placeholder="Nombre de la purificadora"
+                    required
+                  />
+                </div>
+  
+                <div class="numbr mb-4">
+                  <i class="col-2 fa fa-globe text-muted"></i>
+                  <input
+                    class="cal col-10 p-0"
+                    type="text"
+                    ngModel
+                    name="estado"
+                    placeholder="Provincia"
+                    required
+                  />
+                </div>
+  
+                <div class="numbr mb-4">
+                  <i class="col-2 fas fa-map-marker-alt"></i>
+                  <input
+                    class="cal col-10 p-0"
+                    type="text"
+                    ngModel
+                    name="localidad"
+                    placeholder="Direccion"
+                    required
+                  />
+                </div>
+  
+                <div class="boton text-center mb-2">
+                  <button
+                    type="submit"
+                    class="btn btn-success btn-block waves-effect waves-light mt-2"
+                  >
+                    Registrar
+                  </button>
+                </div>
+  
+              </div>       
+            </form>
+          </div>
+
+        </div>
+
+        <!-- <div class="widget border-0">
+          <div class="widget-add">
+            <img class="img-fluid" src="" alt="green purific logo" />
+          </div>
+        </div> -->
+
+        <div class="row">
+          <div class="col-12 text-center mt-2 mt-sm-5">
+            <ul class="pagination justify-content-center mb-0">
+              <li class="page-item disabled">
+                <span class="page-link">Prev</span>
+              </li>
+
+              <li class="page-item"><a class="page-link" href="#">Next</a></li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="col-lg-9">
+      <div class="row mb-2">
+        <div class="col-12">
+          <h6 class="mb-0">
+            Mostrando
+            <span class="text-primary"
+              >{{ purificadoras.length }} purificadoras</span>
+          </h6>
+        </div>
+      </div>
+
+      <div class="row animated--fade-in">
+        <div
+          *ngFor="let purificadora of purificadoras"
+          class="purificDiv col-sm-6 col-lg-4"
+        >
+          <div class="candidate-list candidate-grid">
+            <div class="candidate-list-image" (click)="abrirModal(purificadora)">
+              <img
+                class="img-fluid animated--fade-in"
+                [src]="purificadora.img! | imagen: 'purificadoras'"
+                alt="Imagen de purificadora"
+                [title]="purificadora.img! | imagen: 'purificadoras'"
+              />
+            </div>
+
+            <div class="candidate-list-details">
+
+              <div class="candidate-list-info">
+                <div class="candidate-list-title">
+                  <h5>
+                    <a (click)="modalPurific.abrirModal(purificadora)">
+                      {{purificadora.nombre}}</a>
+                  </h5>
+                </div>
+
+                <div class="candidate-list-option">
+                  <ul class="list-unstyled">
+                    <li>
+                      <i class="fas fa-filter pr-1"></i>{{ purificadora.estado }}
+                    </li>
+                    <li>
+                      <i class="fas fa-map-marker-alt pr-1"></i>
+                      {{ purificadora.localidad }}
+                    </li>
+                  </ul>
+                </div>
+
+                <div class="candidate-list-favourite-time d-flex">
+                  <a 
+                   class="candidate-list-favourite order-2" 
+                   title="Borrar"
+                   (click)="eliminarPurificadora(purificadora)"
+                  >
+                    <i class="fa fa-times"></i>
+                  </a>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="cargando" class="d-flex justify-content-center cargando">
+  <div class="spinner-border" role="status"></div>
+</div>

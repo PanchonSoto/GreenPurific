@@ -5,6 +5,8 @@ import { environment } from 'src/environments/environment';
 
 import { Usuario } from '../models/usuario.model';
 import { map } from 'rxjs/operators';
+import { Purificadora } from '../models/purificadora.model';
+import { Empleado } from '../models/empleado.model';
 
 
 const base_url = environment.base_url;
@@ -38,21 +40,48 @@ export class BusquedasService {
     );
   }
 
-  buscar(tipo: 'usuarios'|'medicos'|'hospitales', termino: string) {
-    const url = `${base_url}/todo/coleccion/${tipo}/${termino}`;
+  private transformarPurificadoras(resultados: any[]): Purificadora[] {
+    return resultados.map(
+      purific => new Purificadora(purific.nombre,purific.localidad,purific.estado,purific.pid, purific.img)
+    );
+  }
+
+  private transformarEmpleados(resultados: any[]): Empleado[] {
+    return resultados.map(
+      empleado => new Empleado(empleado.nombre,empleado.eid,empleado.img,empleado.usuario,empleado.purificadora)
+    );
+  }
+
+
+
+  buscarUser(termino: string) {
+    const url = `${base_url}/todo/coleccion/usuarios/${termino}`;
     return  this.http.get<any[]>(url, this.headers)
               .pipe(
                 map((res:any) => {
-                switch (tipo) {
-                  case 'usuarios':
-                    return this.transformarUsers(res.resultados)
-                    
-                
-                  default:
-                    return [];
-                }
+                    return this.transformarUsers(res.resultados);
                 })
               );
               
+  }
+
+  buscarPurificadora(termino: string) {
+    const url = `${base_url}/todo/coleccion/purificadoras/${termino}`;
+    return  this.http.get<any[]>(url, this.headers)
+              .pipe(
+                map((res:any) => {
+                    return this.transformarPurificadoras(res.resultados);
+                })
+              );         
+  }
+
+  buscarEmpleado(termino: string) {
+    const url = `${base_url}/todo/coleccion/empleados/${termino}`;
+    return  this.http.get<any[]>(url, this.headers)
+              .pipe(
+                map((res:any) => {
+                    return this.transformarEmpleados(res.resultados);
+                })
+              );  
   }
 }

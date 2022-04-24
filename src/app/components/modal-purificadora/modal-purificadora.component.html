@@ -1,0 +1,94 @@
+<div class="fondo-modal-imagen" [class.oculto]="modalPurific.ocultarModal">
+  <div
+    class="modal animated--grow-in show"
+    id="exampleModal"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="exampleModalLabel1"
+    style="display: block"
+  >
+    <div class="modal-dialog" role="document">
+      <form (ngSubmit)="guardar(formulario)" #formulario="ngForm">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title" id="exampleModalLabel1">
+              Actualizar purificadora
+            </h4>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+              (click)="cerrarModal()"
+            >
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+
+          <div class="modal-body">
+            <div class="card mx-auto mt-3 p-0">
+              <img
+                class="mx-auto pic"
+                [src]="modalPurific.imagen"
+                title="purificadora imagen"
+              />
+              
+              <div class="card-body">
+                <p class="text-muted">Rellene los campos con la informacion</p>
+
+                <div 
+                 class="numbr mb-3" 
+                 [ngClass]="{'numbr': formulario.value.nombre, 'liner': !formulario.value.nombre }">
+                 <i class="col-1 fa fa-briefcase text-muted"></i>
+                  <input
+                    class="col-10 p-0"
+                    type="text"
+                    [ngModel]="modalPurific.obtenerPurificadora.nombre"
+                    name="nombre"
+                    placeholder="Nombre de la purificadora"
+                    required
+                  />
+                </div>
+
+                <div 
+                 class="numbr mb-4" 
+                 [ngClass]="{'numbr': formulario.value.estado, 'liner': !formulario.value.estado }">
+                  <i class="col-1 fa fa-globe text-muted"></i>
+                  <input
+                    class="cal col-11 p-0"
+                    type="text"
+                    [ngModel]="modalPurific.obtenerPurificadora.estado"
+                    name="estado"
+                    placeholder="Provincia"
+                    required
+                  />
+                </div>
+
+                <div 
+                 class="numbr mb-4" 
+                 [ngClass]="{'numbr': formulario.value.localidad, 'liner': !formulario.value.localidad }">
+                  <i class="col-1 fas fa-map-marker-alt text-muted"></i>
+                  <input
+                    class="cal col-11 p-0"
+                    type="text"
+                    [ngModel]="modalPurific.obtenerPurificadora.localidad"
+                    name="localidad"
+                    placeholder="Direccion"
+                    required
+                  />
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          <div class="text-center p-0">
+            <button [disabled]="!formulario.valid" type="submit" class="footer col-lg-12 col-12 p-0">
+              <p class="order">Guardar cambios</p>
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

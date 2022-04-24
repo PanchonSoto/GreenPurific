@@ -12,7 +12,7 @@ declare const gapi: any;
   styles: [`
     img{
       margin-top: 20px;
-      width: 100%;
+      margin-left: 10%;
     }
   `
   ]

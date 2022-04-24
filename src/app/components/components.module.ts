@@ -1,7 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 import { ModalImagenComponent } from './modal-imagen/modal-imagen.component';
+import { ModalPurificadoraComponent } from './modal-purificadora/modal-purificadora.component';
 
 
 
@@ -9,12 +11,17 @@ import { ModalImagenComponent } from './modal-imagen/modal-imagen.component';
 
 
 @NgModule({
-  declarations: [ModalImagenComponent],
+  declarations: [
+    ModalImagenComponent, 
+    ModalPurificadoraComponent
+  ],
   imports: [
-    CommonModule
+    CommonModule,
+    FormsModule
   ],
   exports: [
-    ModalImagenComponent
+    ModalImagenComponent,
+    ModalPurificadoraComponent
   ]
 })
 export class ComponentsModule { }

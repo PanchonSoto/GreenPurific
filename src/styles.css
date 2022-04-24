@@ -18,4 +18,9 @@
     position: fixed;
     top: 0px;
     width: 100%;
+    z-index: 999;
+}
+
+#content-wrapper {
+    background-color: #f2f2f2!important;
 }

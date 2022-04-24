@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
   templateUrl: './register.component.html',
   styles: [`
     img{
-      margin-top: 10px;
+      margin-top: 10%;
     }
   `
   ]
