@@ -6,6 +6,7 @@ import { Empleado } from '../../../models/empleado.model';
 import { BusquedasService } from 'src/app/services/busquedas.service';
 import { EmpleadosService } from 'src/app/services/empleados.service';
 import { ModalImagenService } from '../../../services/modal-imagen.service';
+import { UsuariosService } from '../../../services/usuarios.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -20,7 +21,8 @@ export class EmpleadosComponent implements OnInit, OnDestroy {
   public empleados: Empleado[] = [];
   constructor(private empleadoService: EmpleadosService, 
               private modalImg: ModalImagenService,
-              private busquedaS: BusquedasService) { }
+              private busquedaS: BusquedasService,
+              private userService: UsuariosService) { }
 
   ngOnDestroy(): void {
     this.imgSub.unsubscribe();
@@ -59,26 +61,31 @@ export class EmpleadosComponent implements OnInit, OnDestroy {
   }
 
   borrarEmpleado(empleado: Empleado) {
-    Swal.fire({
-      title: 'Eliminar empleado',
-      text: `Borrar purificadora "${empleado.nombre}"?`,
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Si, borrar!'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this.empleadoService.borrarEmpleado(empleado)
-        .subscribe(res => {
-          Swal.fire(
-            'Eliminado',
-            `El empleado "${empleado.nombre}" se ha eliminado`,
-            'success'
-          );
-         this.cargarEmpleados();  
-        }); 
-      }
-    });
+    if(this.userService.role!=='ADMIN_ROLE') {
+      Swal.fire('Error','No tienes los permisos necesarios para esta accion','error');
+    } else {
+      
+      Swal.fire({
+        title: 'Eliminar empleado',
+        text: `Borrar al empleado "${empleado.nombre}"?`,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si, borrar!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.empleadoService.borrarEmpleado(empleado)
+          .subscribe(res => {
+            Swal.fire(
+              'Eliminado',
+              `El empleado "${empleado.nombre}" se ha eliminado`,
+              'success'
+            );
+           this.cargarEmpleados();  
+          }); 
+        }
+      });
+    }
   }
 }

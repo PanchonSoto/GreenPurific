@@ -1,5 +1,7 @@
 import { Component, ElementRef, OnInit } from '@angular/core';
 
+import { UsuariosService } from 'src/app/services/usuarios.service';
+
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
@@ -12,7 +14,7 @@ export class SidebarComponent implements OnInit {
 
   
 
-  constructor() { }
+  constructor(public userService: UsuariosService) { }
 
   ngOnInit(): void {
     const  boton = document.getElementById('sidebarToggle');
@@ -27,6 +29,7 @@ export class SidebarComponent implements OnInit {
     botonTop?.addEventListener('click', e => {
       navBar[0].classList.toggle('toggled');
     });
+
   }
 
 }

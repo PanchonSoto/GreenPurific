@@ -83,7 +83,7 @@
           </div>
 
           <div class="text-center p-0">
-            <button [disabled]="!formulario.valid" type="submit" class="footer col-lg-12 col-12 p-0">
+            <button [disabled]="!formulario.valid && userService.role!=='ADMIN_ROLE'"  type="submit" class="footer col-lg-12 col-12 p-0">
               <p class="order">Guardar cambios</p>
             </button>
           </div>

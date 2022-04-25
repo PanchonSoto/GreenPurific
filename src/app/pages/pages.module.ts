@@ -15,6 +15,7 @@ import { UsuariosComponent } from './mantenimientos/usuarios/usuarios.component'
 import { PurificadorasComponent } from './mantenimientos/purificadoras/purificadoras.component';
 import { PipesModule } from '../pipes/pipes.module';
 import { EmpleadoComponent } from './mantenimientos/empleados/empleado.component';
+import { BusquedaComponent } from './busqueda/busqueda.component';
 
 
 
@@ -27,6 +28,7 @@ import { EmpleadoComponent } from './mantenimientos/empleados/empleado.component
     PurificadorasComponent,
     UsuariosComponent,
     EmpleadoComponent,
+    BusquedaComponent,
   ],
   imports: [
     CommonModule,

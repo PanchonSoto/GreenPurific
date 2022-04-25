@@ -24,7 +24,7 @@ export class UsuariosComponent implements OnInit, OnDestroy {
   public cargando: boolean = false;
   public imgSub?: Subscription;
 
-  constructor(private userService: UsuariosService, private searchService: BusquedasService, public modalService: ModalImagenService) { }
+  constructor(public userService: UsuariosService, private searchService: BusquedasService, public modalService: ModalImagenService) { }
   
   ngOnDestroy(): void {
     this.imgSub?.unsubscribe();

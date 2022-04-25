@@ -81,7 +81,7 @@
                
               </td>
               <td class="acciones">
-                <ul class="list-unstyled mb-0 d-flex justify-content-end">
+                <ul class="list-unstyled mb-0 d-flex justify-content-end" *ngIf="userService.role==='ADMIN_ROLE'">
                   <li>
                     <a
                       class="text-info"

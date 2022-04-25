@@ -2,14 +2,16 @@ import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 
 import { AuthGuard } from '../guards/auth.guard';
+import { AdminGuard } from '../guards/admin.guard';
 
+import { BusquedaComponent } from './busqueda/busqueda.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { EmpleadoComponent } from './mantenimientos/empleados/empleado.component';
 import { EmpleadosComponent } from './mantenimientos/empleados/empleados.component';
 import { PagesComponent } from './pages.component';
 import { PerfilComponent } from './perfil/perfil.component';
 import { PurificadorasComponent } from './mantenimientos/purificadoras/purificadoras.component';
 import { UsuariosComponent } from './mantenimientos/usuarios/usuarios.component';
-import { EmpleadoComponent } from './mantenimientos/empleados/empleado.component';
 
 const routes: Routes = [
   {
@@ -18,12 +20,15 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     children: [
       { path: '', component: DashboardComponent },
+      { path: 'buscar/:termino', component: BusquedaComponent },
       { path: 'perfil', component: PerfilComponent },
 
-      { path: 'usuarios', component:UsuariosComponent },
-      { path: 'purificadoras', component: PurificadorasComponent },
+      { path: 'empleado/:id', component: EmpleadoComponent },
       { path: 'empleados', component: EmpleadosComponent },
-      { path: 'empleado/:id', component: EmpleadoComponent }
+      { path: 'purificadoras', component: PurificadorasComponent },
+
+      //ruta de admin
+      { path: 'usuarios', canActivate: [AdminGuard] ,component:UsuariosComponent },
     ],
   },
   //{ path: 'path/:routeParam', component: MyComponent },

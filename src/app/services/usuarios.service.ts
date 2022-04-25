@@ -38,6 +38,10 @@ export class UsuariosService {
     return this.usuario?.uid || '';
   }
 
+  get role() {
+    return this.usuario?.role;
+  }
+
   get headers() {
     return { 
       headers: {

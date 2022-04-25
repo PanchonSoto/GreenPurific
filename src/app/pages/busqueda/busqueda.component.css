@@ -1,0 +1,27 @@
+.perfil {
+    object-fit: cover;
+    /* cambia estos dos valores para definir el tamaño de tu círculo */
+    height: 60px;
+    width: 60px;
+    /* los siguientes valores son independientes del tamaño del círculo */
+    background-repeat: no-repeat;
+    background-position: 50%;
+    border-radius: 50%;
+    background-size: 100% auto;
+}
+
+.purific {
+    object-fit: cover;
+    /* cambia estos dos valores para definir el tamaño de tu círculo */
+    height: 60px;
+    width: 60px;
+    /* los siguientes valores son independientes del tamaño del círculo */
+    background-repeat: no-repeat;
+    background-position: 50%;
+    border-radius: 10%;
+    background-size: 100% auto; 
+}
+
+h1 {
+    font-size: 28px;
+}

@@ -3,6 +3,8 @@ import { NgForm } from '@angular/forms';
 import { ModalPurificadoraService } from '../../services/modal-purificadora.service';
 import { PurificadoraService } from '../../services/purificadora.service';
 import { Purificadora } from '../../models/purificadora.model';
+import { UsuariosService } from '../../services/usuarios.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-modal-purificadora',
@@ -16,7 +18,8 @@ export class ModalPurificadoraComponent {
 
   constructor(
     public modalPurific: ModalPurificadoraService, 
-    private purificService: PurificadoraService
+    private purificService: PurificadoraService,
+    public userService: UsuariosService
   ) { }
 
 
@@ -43,12 +46,22 @@ export class ModalPurificadoraComponent {
 
     this.purificadora = { nombre, estado, localidad, pid: id }
 
-    if(!form.valid) return;
-    this.purificService.actualizarPurificadora(this.purificadora)
-      .subscribe(res => {
-        this.modalPurific.cerrarModal();
-        this.modalPurific.nuevaPurific.emit(res);
+    if(this.userService.role!=='ADMIN_ROLE') {
+      Swal.fire('Error','No cuentas con los permisos necesarios','error')
+    } else {
+      if(!form.valid) return;
+      this.purificService.actualizarPurificadora(this.purificadora)
+        .subscribe(res => {
+          this.modalPurific.cerrarModal();
+          this.modalPurific.nuevaPurific.emit(res);
       })
+    }
+  
+    
   }
 
+
+
+
+  
 }

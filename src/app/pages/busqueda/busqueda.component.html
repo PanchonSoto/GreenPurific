@@ -1,0 +1,124 @@
+<div class="container-fluid">
+
+    <h1>Buscar en la app</h1>
+
+    <div class="row mb-5 animated--fade-in">
+        <div class="col-4 mt-4">
+            <div class="card shadow mt-4">
+                <div class="card-header py-3 text-primary">Usuarios</div>
+                <div class="card-body">
+                    
+                    <div *ngIf="usuarios.length===0" class="alert alert-info" role="alert">
+                        No se encontro usuarios 
+                    </div>
+                    <table *ngIf="usuarios.length!==0" class="table">
+                        <thead>
+                            <tr>
+                                <th>Foto</th>
+                                <th>Nombre</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let usuario of usuarios">
+                                <td>
+                                    <img
+                                    class="img-profile rounded-circle perfil"
+                                    [src]="usuario.img! | imagen:'usuarios'"
+                                    alt="foto de usuario"
+                                    referrerpolicy="no-referrer"
+                                  />
+                                </td>
+                                <td>{{usuario.nombre}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                
+        
+                </div>
+            </div> 
+        </div>
+
+        <div class="col-4 mt-4">
+            <div class="card shadow mt-4">
+                <div class="card-header py-3 text-primary">Purificadoras</div>
+                <div class="card-body">
+
+                    <div *ngIf="purificadoras.length===0" class="alert alert-info" role="alert">
+                        No se encontraron purificadoras 
+                    </div>
+        
+                    <table *ngIf="usuarios.length!==0" class="table">
+                        <thead>
+                            <tr>
+                                <th>Foto</th>
+                                <th>Nombre</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let purificadora of purificadoras">
+                                <td>
+                                    <img
+                                    class="purific"
+                                    [src]="purificadora.img! | imagen:'purificadoras'"
+                                    alt="foto de la purificadora"
+                                    referrerpolicy="no-referrer"
+                                  />
+                                </td>
+                                <td>{{purificadora.nombre}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                
+        
+                </div>
+            </div> 
+        </div>
+
+
+        <div class="col-4 mt-4">
+            <div class="card shadow mt-4">
+                <div class="card-header py-3 text-primary">Empleados</div>
+                <div class="card-body">
+
+                    <div *ngIf="empleados.length===0" class="alert alert-info" role="alert">
+                        No se encontraron empleados 
+                    </div>
+        
+                    <table *ngIf="empleados.length!==0" class="table">
+                        <thead>
+                            <tr>
+                                <th>Foto</th>
+                                <th>Nombre</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let empleado of empleados">
+                                <td>
+                                    <img
+                                    class="img-profile rounded-circle perfil"
+                                    [src]="empleado.img! | imagen:'empleados'"
+                                    alt="foto del empleado"
+                                    referrerpolicy="no-referrer"
+                                  />
+                                </td>
+                                <td>{{empleado.nombre}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                
+        
+                </div>
+            </div> 
+        </div>
+
+
+
+
+
+
+
+
+
+    </div>
+    
+</div>

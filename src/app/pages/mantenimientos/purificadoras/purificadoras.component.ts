@@ -4,12 +4,13 @@ import { Subscription, delay } from 'rxjs';
 
 import { Purificadora } from 'src/app/models/purificadora.model';
 
+import { BusquedasService } from '../../../services/busquedas.service';
 import { ModalImagenService } from '../../../services/modal-imagen.service';
 import { ModalPurificadoraService } from 'src/app/services/modal-purificadora.service';
 import { PurificadoraService } from 'src/app/services/purificadora.service';
+import { UsuariosService } from '../../../services/usuarios.service';
 
 import Swal from 'sweetalert2';
-import { BusquedasService } from '../../../services/busquedas.service';
 
 
 @Component({
@@ -34,14 +35,15 @@ export class PurificadorasComponent implements OnInit, OnDestroy {
     private purificService: PurificadoraService, 
     public modalPurific: ModalPurificadoraService,
     private modalImage: ModalImagenService,
-    private searchService: BusquedasService) { }
+    private searchService: BusquedasService,
+    public userService: UsuariosService) { }
   
 
   ngOnInit(): void {
     this.cargarPurificadoras();
     //subscribiendome a los cambios cuando agregamos una purificadora
     this.purificSub = this.modalPurific.nuevaPurific
-      .pipe(delay(100))
+      .pipe(delay(200))
       .subscribe(img => {
         this.cargarPurificadoras();
         Swal.fire('Datos guardados','La purificadora ha sido actualizada','success');
@@ -49,6 +51,7 @@ export class PurificadorasComponent implements OnInit, OnDestroy {
     
     // subscribiendome a los cambios cuando agregamos una imagen
     this.imgSub = this.modalImage.nuevaImagen
+      .pipe(delay(100))
       .subscribe((_)=>{
         this.cargarPurificadoras();
       })
@@ -82,12 +85,18 @@ export class PurificadorasComponent implements OnInit, OnDestroy {
 
     if(!form.valid) return;
 
-    this.purificService.crearPurificadora(this.purificadora)
+    if(this.userService.role !== 'ADMIN_ROLE') {
+      Swal.fire('Error','No cuentas con los permisos necesarios','error');
+    } else {
+      this.purificService.crearPurificadora(this.purificadora)
       .subscribe(res => {
         Swal.fire('Regitro exitoo','La purificadora ha sido registrada','success');
         this.cargarPurificadoras();
         this.miFormulario.reset();
       });
+    }
+
+    
   }
 
 
@@ -102,15 +111,20 @@ export class PurificadorasComponent implements OnInit, OnDestroy {
       confirmButtonText: 'Si, borrar!'
     }).then((result) => {
       if (result.isConfirmed) {
-        this.purificService.borrarPurificadora(purific)
-        .subscribe(res => {
-          Swal.fire(
-            'Eliminado',
-            `La purificadora "${purific.nombre}" se ha eliminado`,
-            'success'
-          );
-         this.cargarPurificadoras();  
-        }); 
+        if(this.userService.role !== 'ADMIN_ROLE'){
+          Swal.fire('Error','No cuentas con los permisos necesarios','error');
+        } else {
+          this.purificService.borrarPurificadora(purific)
+          .subscribe(res => {
+            Swal.fire(
+              'Eliminado',
+              `La purificadora "${purific.nombre}" se ha eliminado`,
+              'success'
+            );
+           this.cargarPurificadoras();  
+          }); 
+        }
+         
       }
     });    
   }

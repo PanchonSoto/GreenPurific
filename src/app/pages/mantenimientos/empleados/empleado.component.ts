@@ -9,6 +9,7 @@ import { PurificadoraService } from '../../../services/purificadora.service';
 import { EmpleadosService } from '../../../services/empleados.service';
 import Swal from 'sweetalert2';
 import { delay } from 'rxjs';
+import { UsuariosService } from '../../../services/usuarios.service';
 
 @Component({
   selector: 'app-empleado',
@@ -27,12 +28,12 @@ export class EmpleadoComponent implements OnInit {
               private purificService: PurificadoraService,
               private empleadoService: EmpleadosService,
               private router: Router,
-              private activadRoute: ActivatedRoute) { }
+              private activadRoute: ActivatedRoute,
+              private userService: UsuariosService) { }
 
   ngOnInit(): void {
 
     this.activadRoute.params.subscribe(({id}) => {
-      console.log('id',id);
       this.cargarEmpleado(id);
     });
 
@@ -77,27 +78,30 @@ export class EmpleadoComponent implements OnInit {
 
 
   guardarEmpleado() {
-
-    if(this.empleadoSelected) {
-      const data = {
-        ...this.empleadoForm.value,
-        eid: this.empleadoSelected.eid
-      }
-
-      this.empleadoService.actualizarEmpleado(data)
-        .subscribe(res => {
-          console.log(res);
-          Swal.fire('Actualizado',`${this.empleadoForm.get('nombre')!.value} se ha actualizado`,'success');
-        })
+    if(this.userService.role!=='ADMIN_ROLE') {
+      Swal.fire('Error','No cuentas con los permisos necesarios','error');
     } else {
-      this.empleadoService.crearEmpleado(this.empleadoForm.value)
-      .subscribe((res: any) => {
-        console.log(res);
-        Swal.fire('Creado',`${this.empleadoForm.get('nombre')!.value} se ha creado`,'success');
-        this.router.navigateByUrl(`/dashboard/empleado/${res.empleado.eid}`);
-      });
+      if(this.empleadoSelected) {
+        const data = {
+          ...this.empleadoForm.value,
+          eid: this.empleadoSelected.eid
+        }
+  
+        this.empleadoService.actualizarEmpleado(data)
+          .subscribe(res => {
+            Swal.fire('Actualizado',`${this.empleadoForm.get('nombre')!.value} se ha actualizado`,'success');
+          })
+      } else {
+        this.empleadoService.crearEmpleado(this.empleadoForm.value)
+        .subscribe((res: any) => {
+          Swal.fire('Creado',`${this.empleadoForm.get('nombre')!.value} se ha creado`,'success');
+          this.router.navigateByUrl(`/dashboard/empleado/${res.empleado.eid}`);
+        });
+      }
     }
-    
+      
   }
+
+  
 
 }

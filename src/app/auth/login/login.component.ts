@@ -25,12 +25,17 @@ export class LoginComponent implements OnInit {
   public auth2: any;
 
   public loginForm = this.fb.group({
-    email: [localStorage.getItem('email') || '', [Validators.required, Validators.email]],
-    password: ['',Validators.required],
+    email: [localStorage.getItem('email') || 'cuentaAdmin@gmail.com', [Validators.required, Validators.email]],
+    password: ['123456',Validators.required],
     remember: false
   });
 
-  constructor(private fb: FormBuilder, private usuarioS: UsuariosService, private router: Router, private ngZone: NgZone) { }
+  constructor(
+    private fb: FormBuilder, 
+    private usuarioS: UsuariosService, 
+    private router: Router, 
+    private ngZone: NgZone
+  ) { }
 
   ngOnInit(): void {
     this.renderButton();
@@ -76,10 +81,10 @@ export class LoginComponent implements OnInit {
     this.auth2.attachClickHandler(element, {},
         (googleUser:any) => {
           const id_token = googleUser.getAuthResponse().id_token;
-          //console.log(id_token);
           this.usuarioS.loginGoogle(id_token)
-            .subscribe((_)=>{
+            .subscribe(res=>{
               this.ngZone.run(()=>{
+                
                 this.router.navigateByUrl('/');//navegar al dash
               });
             });

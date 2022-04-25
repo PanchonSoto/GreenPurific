@@ -36,7 +36,6 @@ export class EmpleadosService {
 
   getEmpleadosById(id: string): Observable<Empleado> {
     const url = `${base_url}/empleados/${id}`;
-    console.log(url);
     return this.http.get<{ok: boolean, empleado: Empleado}>(url, this.headers)
       .pipe(
         map((res:{ok: boolean, empleado: Empleado}) => res.empleado)
